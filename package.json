@@ -1,0 +1,20 @@
+{
+  "name": "concrete-js",
+  "version": "1.0.0",
+  "description": "Immutable data structures for TypeScript and JavaScript.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "compile": "./node_modules/typescript/bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "immutable"
+  ],
+  "author": "Patrick Martin",
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^4.0.2",
+    "typescript": "^2.1.4"
+  }
+}

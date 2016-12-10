@@ -1,0 +1,21 @@
+{
+    "version": "2.1.4",
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationDir": "./dist",
+        "outDir": "./dist"
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}
