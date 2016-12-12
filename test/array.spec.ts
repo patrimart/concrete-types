@@ -1,5 +1,6 @@
 
 import "mocha";
+import "proxy-polyfill";
 import * as assert from "assert";
 
 import * as Concrete from "../dist/";

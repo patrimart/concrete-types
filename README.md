@@ -15,6 +15,14 @@ npm install concrete-types
 ```
 
 
+#### Requirements
+
+This library uses the Proxy object. If your environment does not support Proxy, use a Proxy polyfill.
+```
+npm install proxy-polyfill
+```
+
+
 #### Usage
 
 For TypeScript and ES6:
