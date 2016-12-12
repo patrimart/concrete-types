@@ -3,6 +3,7 @@
 ## Immutable data types for TypeScript and JavaScript.
 
 [![Build Status](https://travis-ci.org/patrimart/concrete-types.svg?branch=master)](https://travis-ci.org/patrimart/concrete-types)
+[![Coverage Status](https://coveralls.io/repos/github/patrimart/concrete-types/badge.svg?branch=master)](https://coveralls.io/github/patrimart/concrete-types?branch=master)
 
 
 ### Installation
