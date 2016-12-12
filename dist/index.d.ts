@@ -5,7 +5,7 @@ export declare function from<T>(arr: T[]): i.ConcreteArray<T>;
 export declare function from(date: Date): i.ConcreteDate;
 export declare function from<K, V>(map: Map<K, V>): i.ConcreteMap<K, V>;
 export declare function from<T>(set: Set<T>): i.ConcreteSet<T>;
-export declare function from<T>(obj: T): i.ConcreteObject<T>;
+export declare function from<T extends {}>(obj: T): i.ConcreteObject<T>;
 export declare function toMutable<T>(obj: i.ConcreteArray<T>): T[];
 export declare function toMutable(obj: i.ConcreteDate): Date;
 export declare function toMutable<K, V>(obj: i.ConcreteMap<K, V>): Map<K, V>;

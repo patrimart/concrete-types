@@ -10,7 +10,7 @@ import {
  * 
  */
 export function is <T> (obj: any): obj is ConcreteStructure {
-    return obj[ConcreteStructureTypeKey] !== undefined;
+    return !! obj && obj[ConcreteStructureTypeKey] !== undefined;
 }
 
 export function isArray <T> (obj: T[]): obj is i.ConcreteArray<T> {

@@ -16,7 +16,7 @@ export function from <T> (arr: T[]): i.ConcreteArray<T>;
 export function from (date: Date): i.ConcreteDate;
 export function from <K, V> (map: Map<K, V>): i.ConcreteMap<K, V>;
 export function from <T> (set: Set<T>): i.ConcreteSet<T>;
-export function from <T> (obj: T): i.ConcreteObject<T>;
+export function from <T extends {}> (obj: T): i.ConcreteObject<T>;
 export function from (obj: any): any {
 
     if (obj instanceof Map) {
@@ -28,11 +28,13 @@ export function from (obj: any): any {
     } else if (typeof obj === "object") {
         if (Array.isArray(obj)) {
             return consArray.from(obj);
+        } else if (obj.constructor === Object) {
+            return consObj.from(obj);
         }
-        return consObj.from(obj);
     }
 
-    throw new TypeError(`The given object type is not supported: ${obj}`);
+    // throw new TypeError(`The given object type is not supported: ${obj}`);
+    return obj;
 }
 
 
@@ -55,5 +57,6 @@ export function toMutable (obj: any): any {
         return obj.toMutable();
     }
 
-    throw new TypeError(`The given object type is not supported: ${obj}`);
+    // throw new TypeError(`The given object type is not supported: ${obj}`);
+    return obj;
 }

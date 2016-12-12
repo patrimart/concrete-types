@@ -1,4 +1,9 @@
-import { ConcreteDate } from "../interfaces/ConcreteDate";
-import { ConcreteObject } from "../interfaces/ConcreteObject";
+import { ConcreteObject } from "../interfaces/";
+/**
+ *
+ */
 export declare function toMutable<T>(obj: ConcreteObject<T>): T;
-export declare function from(date: Date): ConcreteDate;
+/**
+ *
+ */
+export declare function from<T extends {}>(obj: T): ConcreteObject<T>;

@@ -1,3 +1,4 @@
+
 const StructureCacheKey = Symbol("StructureCacheKey");
 
 const StructureCache = new WeakMap<Object, ConcreteStructure>();

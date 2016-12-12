@@ -4,24 +4,41 @@ import { ConcreteStructure } from "../constructors/ConcreteStructure";
  */
 export interface ConcreteMap<K, V> extends Map<K, V>, ConcreteStructure {
     /**
-     *
+     * Throws a ReadonlyError.
+     * @throws ReadonlyError
      */
-    filter(f: (k: K, v: () => V) => boolean): this;
+    clear(): void;
+    /**
+     * Throws a ReadonlyError.
+     * @throws ReadonlyError
+     */
+    delete(key: K): boolean;
+    /**
+     * This method is inefficient for non-primitives, forcing an eval of the lazy value. Use the other forEach method.
+     */
+    /**
+     * This forEach method returns the lazy value.
+     */
+    forEach(callbackfn: (value: V, key: K, map: this) => void, thisArg?: any): void;
+    /**
+     * Throws a ReadonlyError.
+     * @throws ReadonlyError
+     */
+    set(key: K, value: V): this;
     /**
      *
      */
-    map(f: (k: K, v: () => V) => [K, V] | K): this;
+    /**
+     * Simply return the key to keep the value, avoiding eval of lazy value.
+     */
     /**
      *
      */
-    map<U>(f: (k: K, v: () => V) => [K, U]): ConcreteMap<K, U>;
     /**
      *
      */
-    pick(...keys: K[]): this;
     /**
      *
      */
-    reduce<L, U>(f: (p: [L, U], c: [K, V]) => [L, U], i: [L, U]): ConcreteMap<L, U>;
     toMutable(): Map<K, V>;
 }

@@ -23,9 +23,12 @@ function from(obj) {
         if (Array.isArray(obj)) {
             return consArray.from(obj);
         }
-        return consObj.from(obj);
+        else if (obj.constructor === Object) {
+            return consObj.from(obj);
+        }
     }
-    throw new TypeError("The given object type is not supported: " + obj);
+    // throw new TypeError(`The given object type is not supported: ${obj}`);
+    return obj;
 }
 exports.from = from;
 function toMutable(obj) {
@@ -44,7 +47,8 @@ function toMutable(obj) {
     else if (guards.isSet(obj)) {
         return obj.toMutable();
     }
-    throw new TypeError("The given object type is not supported: " + obj);
+    // throw new TypeError(`The given object type is not supported: ${obj}`);
+    return obj;
 }
 exports.toMutable = toMutable;
 //# sourceMappingURL=index.js.map
