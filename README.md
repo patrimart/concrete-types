@@ -2,6 +2,8 @@
 # Concrete Types
 ## Immutable data types for TypeScript and JavaScript.
 
+[![Build Status](https://travis-ci.org/patrimart/concrete-types.svg?branch=master)](https://travis-ci.org/patrimart/concrete-types)
+
 
 ### Installation
 
