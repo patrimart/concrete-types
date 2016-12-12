@@ -8,6 +8,7 @@
     "compile": "rm -rf ./dist/**/* && ./node_modules/typescript/bin/tsc",
     "compile-test": "rm -rf ./test/*.spec.js && ./node_modules/typescript/bin/tsc ./test/*.spec.ts --target ES5 --lib ES6",
     "compile-all": "npm run compile && npm run compile-test",
+    "bundle": "node ./node_modules/webpack/bin/webpack --optimize-occurrence-order --optimize-dedupe webpack.concrete.js ./bundle/concrete.min.js",
     "test": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test-local": "node_modules/.bin/istanbul cover _mocha  -- -R spec",
     "test-mocha": "mocha --require source-map-support/register  ./test/*.spec.js"

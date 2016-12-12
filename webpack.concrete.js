@@ -1,0 +1,2 @@
+
+global.Concrete = require('./dist');
