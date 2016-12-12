@@ -7,14 +7,19 @@
 
 Install the library.
 
-`npm install concrete-types`
+```
+npm install concrete-types
+```
 
 
 #### Usage
 
 For TypeScript and ES6:
-`import * as Concrete from "concrete-types";`
+```
+import * as Concrete from "concrete-types";
+```
 
 For browser's `<script>` importing:
-`<script src="node_modules/concrete-types/bundle/concrete.min.js"></script>`
-
+```
+<script src="node_modules/concrete-types/bundle/concrete.min.js"></script>
+```
