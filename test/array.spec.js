@@ -1,6 +1,5 @@
 "use strict";
 require("mocha");
-require("proxy-polyfill");
 var assert = require("assert");
 var Concrete = require("../dist/");
 describe("ConcreteArray", function () {

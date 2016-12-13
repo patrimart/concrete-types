@@ -34,17 +34,18 @@ export function from <K, V> (map: Map<K, V>): ConcreteMap<K, V> {
         },
     });
 
-    map = new Proxy(map, {
-        set: function (oTarget, sKey, vValue) {
-            throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-        },
-        deleteProperty: function (oTarget, sKey) {
-            throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-        },
-        defineProperty: function (oTarget, sKey, oDesc) {
-            throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-        },
-    });
+    map = Object.freeze(map) as any;
+    // map = new Proxy(map, {
+    //     set: function (oTarget, sKey, vValue) {
+    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
+    //     },
+    //     deleteProperty: function (oTarget, sKey) {
+    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
+    //     },
+    //     defineProperty: function (oTarget, sKey, oDesc) {
+    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
+    //     },
+    // });
 
     return map as ConcreteMap<K, V>;
 }

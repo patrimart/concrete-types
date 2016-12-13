@@ -39,17 +39,18 @@ export function from (date: Date): ConcreteDate {
         },
     });
 
-    date = new Proxy(date, {
-        set: function (oTarget, sKey, vValue) {
-            throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-        },
-        deleteProperty: function (oTarget, sKey) {
-            throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-        },
-        defineProperty: function (oTarget, sKey, oDesc) {
-            throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-        },
-    });
+    date = Object.freeze<Date>(date) as any;
+    // date = new Proxy(date, {
+    //     set: function (oTarget, sKey, vValue) {
+    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
+    //     },
+    //     deleteProperty: function (oTarget, sKey) {
+    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
+    //     },
+    //     defineProperty: function (oTarget, sKey, oDesc) {
+    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
+    //     },
+    // });
 
     return date as ConcreteDate;
 }

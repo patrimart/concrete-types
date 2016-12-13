@@ -23,17 +23,18 @@ function from(set) {
             return mutSet;
         },
     });
-    set = new Proxy(set, {
-        set: function (oTarget, sKey, vValue) {
-            throw new errors_1.ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-        },
-        deleteProperty: function (oTarget, sKey) {
-            throw new errors_1.ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-        },
-        defineProperty: function (oTarget, sKey, oDesc) {
-            throw new errors_1.ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-        },
-    });
+    set = Object.freeze(set);
+    // set = new Proxy(set, {
+    //     set: function (oTarget, sKey, vValue) {
+    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
+    //     },
+    //     deleteProperty: function (oTarget, sKey) {
+    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
+    //     },
+    //     defineProperty: function (oTarget, sKey, oDesc) {
+    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
+    //     },
+    // });
     return set;
 }
 exports.from = from;

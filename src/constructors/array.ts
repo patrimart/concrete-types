@@ -11,14 +11,17 @@ import * as consDate  from "./date";
 import * as consMap   from "./map";
 import * as consSet   from "./set";
 
-import { toMutable as toMutableAll } from "../";
+import {
+    from as fromAll,
+    toMutable as toMutableAll,
+} from "../";
 
 
 const readOnlyErrorProp = {
     value: function () { throw new ReadonlyError("This method is not supported by Concrete arrays."); },
 };
 
-export function from <T> (arr: T[]): ConcreteArray<T> {
+export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
 
     let sumCache: number;
 
@@ -50,49 +53,45 @@ export function from <T> (arr: T[]): ConcreteArray<T> {
     });
 
     // Proxify
-    arr = new Proxy(arr, {
+    if (Proxy) {
+        if (forceDeep) { arr.forEach(v => fromAll(v, true)); }
+        arr = new Proxy(arr, proxyHandler(forceDeep)) as T[];
+    } else {
+        arr.forEach(v => fromAll(v, true));
+        arr = Object.freeze(arr) as T[];
+    }
 
-        get: function (oTarget, sKey) {
+    // Add Array to cache.
+    return arr as ConcreteArray<T>;
+}
+
+
+function proxyHandler<T> (forceDeep?: boolean): ProxyHandler<T> {
+
+    return {
+        get: forceDeep ? function (oTarget, sKey) {
 
             const value = (oTarget as any)[sKey];
             const typeOf = typeof value;
 
-            if (value === undefined || value === null || typeOf === "function" || typeOf === "symbol") {
+            if (forceDeep || value === undefined || value === null || typeOf === "function" || typeOf === "symbol") {
                 return value;
             }
-            // If already Concrete, return.
-            if (is(value)) { return value; }
-            // If not Concrete and supported object, make Concrete.
-            if (value instanceof Map) {
-                return consMap.from(value);
-            } else if (value instanceof Set) {
-                return consSet.from(value);
-            } else if (value instanceof Date) {
-                return consDate.from(value);
-            } else if (typeOf === "object") {
-                if (Array.isArray(value)) {
-                    return consArray.from(value);
-                } else if (value.constructor === Object) {
-                    return from(value);
-                }
-            }
-            // Else, return raw unsupported object.
-            return value;
-        },
+
+            return fromAll(value);
+
+        } : undefined,
 
         set: function (oTarget, sKey, vValue) {
-            throw new ReadonlyError("Setting an index or property on this Concrete object is forbidden.");
+            throw new ReadonlyError("Setting an index or property on ConcreteArray is forbidden.");
         },
 
         deleteProperty: function (oTarget, sKey) {
-            throw new ReadonlyError("Deleting an index on this Concrete array is forbidden.");
+            throw new ReadonlyError("Deleting an index on ConcreteArray is forbidden.");
         },
 
         defineProperty: function (oTarget, sKey, oDesc) {
-            throw new ReadonlyError("Defining a property on this Concrete array is forbidden.");
+            throw new ReadonlyError("Defining a property on ConcreteArray is forbidden.");
         },
-    });
-
-    // Add Array to cache.
-    return arr as ConcreteArray<T>;
+    };
 }
