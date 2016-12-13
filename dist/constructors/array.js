@@ -50,14 +50,14 @@ function from(arr, forceDeep) {
 exports.from = from;
 function proxyHandler(forceDeep) {
     return {
-        get: forceDeep ? function (oTarget, sKey) {
+        get: forceDeep ? undefined : function (oTarget, sKey) {
             var value = oTarget[sKey];
             var typeOf = typeof value;
             if (forceDeep || value === undefined || value === null || typeOf === "function" || typeOf === "symbol") {
                 return value;
             }
             return _1.from(value);
-        } : undefined,
+        },
         set: function (oTarget, sKey, vValue) {
             throw new errors_1.ReadonlyError("Setting an index or property on ConcreteArray is forbidden.");
         },

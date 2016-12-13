@@ -69,7 +69,7 @@ export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
 function proxyHandler<T> (forceDeep?: boolean): ProxyHandler<T> {
 
     return {
-        get: forceDeep ? function (oTarget, sKey) {
+        get: forceDeep ? undefined : function (oTarget, sKey) {
 
             const value = (oTarget as any)[sKey];
             const typeOf = typeof value;
@@ -80,7 +80,7 @@ function proxyHandler<T> (forceDeep?: boolean): ProxyHandler<T> {
 
             return fromAll(value);
 
-        } : undefined,
+        },
 
         set: function (oTarget, sKey, vValue) {
             throw new ReadonlyError("Setting an index or property on ConcreteArray is forbidden.");
