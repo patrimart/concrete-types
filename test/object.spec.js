@@ -15,7 +15,10 @@ describe("ConcreteObject", function () {
     var cobj = Concrete.from(obj);
     it("should output with console.log()", function () {
         console.log(cobj);
-        console.log(Object.keys(cobj));
+        // console.log(Object.keys(cobj));
+        for (var key in cobj) {
+            console.log("ConcreteObject key=" + key + " value=" + cobj[key]);
+        }
     });
     it("should equal JS Object", function () {
         assert.deepEqual(cobj, obj, "ConcreteObject not equal");

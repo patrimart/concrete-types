@@ -30,7 +30,10 @@ describe("ConcreteObject", function () {
     it("should output with console.log()", function () {
 
         console.log(cobj);
-        console.log(Object.keys(cobj));
+        // console.log(Object.keys(cobj));
+        for (let key in cobj) {
+            console.log(`ConcreteObject key=${key} value=${cobj[key]}`);
+        }
     });
 
     it("should equal JS Object", function () {
