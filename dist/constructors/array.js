@@ -34,11 +34,12 @@ function from(arr, forceDeep) {
         },
     });
     // Proxify
-    if (Proxy) {
+    var proxy = Proxy || undefined;
+    if (proxy) {
         if (forceDeep) {
             arr.forEach(function (v) { return _1.from(v, true); });
         }
-        arr = new Proxy(arr, proxyHandler(forceDeep));
+        arr = new proxy(arr, proxyHandler(forceDeep));
     }
     else {
         arr.forEach(function (v) { return _1.from(v, true); });

@@ -1,6 +1,6 @@
 {
   "name": "concrete-types",
-  "version": "0.5.0-alpha.3",
+  "version": "0.5.0-alpha.4",
   "description": "Immutable data structures for TypeScript and JavaScript.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,8 @@
     "bundle": "node ./node_modules/webpack/bin/webpack --optimize-occurrence-order --optimize-dedupe webpack.concrete.js ./bundle/concrete.min.js",
     "test": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test-local": "node_modules/.bin/istanbul cover _mocha  -- -R spec",
-    "test-mocha": "mocha --require source-map-support/register  ./test/*.spec.js"
+    "test-mocha": "mocha --require source-map-support/register  ./test/*.spec.js",
+    "release": "npm run compile-all && npm run test-local && npm run bundle && echo 'Remember to bump the version.'"
   },
   "keywords": [
     "immutable"

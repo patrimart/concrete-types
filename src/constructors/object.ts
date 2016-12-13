@@ -37,9 +37,10 @@ export function from <T extends Object> (obj: T, forceDeep?: boolean): ConcreteO
     });
 
     // Proxify or Freeze
-    if (Proxy) {
+    const proxy = Proxy || undefined;
+    if (proxy) {
         if (forceDeep) { for (let v in obj) { fromAll(obj[v] as any, true); } }
-        obj = new Proxy(obj, proxyHandler(forceDeep)) as T;
+        obj = new proxy(obj, proxyHandler(forceDeep)) as T;
     } else {
         for (let v in obj) { fromAll(obj[v] as any, true); }
         obj = Object.freeze(obj) as T;
