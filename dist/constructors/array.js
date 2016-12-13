@@ -34,7 +34,7 @@ function from(arr, forceDeep) {
         },
     });
     // Proxify
-    if (Proxy) {
+    if (Proxy !== undefined) {
         if (forceDeep) {
             arr.forEach(function (v) { return _1.from(v, true); });
         }

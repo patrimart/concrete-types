@@ -21,7 +21,7 @@ function from(obj, forceDeep) {
         value: ConcreteStructure_1.ConcreteStructureType.OBJECT
     });
     // Proxify or Freeze
-    if (Proxy) {
+    if (Proxy !== undefined) {
         if (forceDeep) {
             for (var v in obj) {
                 _1.from(obj[v], true);
