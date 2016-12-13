@@ -53,10 +53,9 @@ export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
     });
 
     // Proxify
-    const proxy = Proxy || undefined;
-    if (proxy) {
+    if (typeof Proxy !== "undefined") {
         if (forceDeep) { arr.forEach(v => fromAll(v, true)); }
-        arr = new proxy(arr, proxyHandler(forceDeep)) as T[];
+        arr = new Proxy(arr, proxyHandler(forceDeep)) as T[];
     } else {
         arr.forEach(v => fromAll(v, true));
         arr = Object.freeze(arr) as T[];

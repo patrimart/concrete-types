@@ -21,14 +21,13 @@ function from(obj, forceDeep) {
         value: ConcreteStructure_1.ConcreteStructureType.OBJECT
     });
     // Proxify or Freeze
-    var proxy = Proxy || undefined;
-    if (proxy) {
+    if (typeof Proxy !== "undefined") {
         if (forceDeep) {
             for (var v in obj) {
                 _1.from(obj[v], true);
             }
         }
-        obj = new proxy(obj, proxyHandler(forceDeep));
+        obj = new Proxy(obj, proxyHandler(forceDeep));
     }
     else {
         for (var v in obj) {
