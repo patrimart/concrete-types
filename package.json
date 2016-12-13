@@ -1,6 +1,6 @@
 {
   "name": "concrete-types",
-  "version": "0.5.0-alpha.2",
+  "version": "0.5.0-alpha.3",
   "description": "Immutable data structures for TypeScript and JavaScript.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
