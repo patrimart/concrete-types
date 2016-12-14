@@ -1,5 +1,6 @@
 "use strict";
 var errors_1 = require("../errors");
+var guards_1 = require("../guards");
 var ConcreteStructure_1 = require("./ConcreteStructure");
 var _1 = require("../");
 var readOnlyErrorProp = {
@@ -9,33 +10,25 @@ var readOnlyErrorProp = {
  *
  */
 function from(set) {
+    if (guards_1.isSet(set)) {
+        return set;
+    }
     set.forEach(function (v) { return _1.from(v); });
-    set = Object.defineProperties(set, {
-        ConcreteStructureTypeKey: {
+    set = Object.defineProperties(set, (_a = {},
+        _a[ConcreteStructure_1.ConcreteStructureTypeKey] = {
             value: ConcreteStructure_1.ConcreteStructureType.MAP
         },
-        add: readOnlyErrorProp,
-        clear: readOnlyErrorProp,
-        delete: readOnlyErrorProp,
-        toMutable: function () {
+        _a.add = readOnlyErrorProp,
+        _a.clear = readOnlyErrorProp,
+        _a.delete = readOnlyErrorProp,
+        _a.toMutable = function () {
             var mutSet = new Set();
             set.forEach(function (v) { return mutSet.add(_1.toMutable(v)); });
             return mutSet;
         },
-    });
-    set = Object.freeze(set);
-    // set = new Proxy(set, {
-    //     set: function (oTarget, sKey, vValue) {
-    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     deleteProperty: function (oTarget, sKey) {
-    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     defineProperty: function (oTarget, sKey, oDesc) {
-    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-    //     },
-    // });
-    return set;
+        _a));
+    return Object.freeze(set);
+    var _a;
 }
 exports.from = from;
 //# sourceMappingURL=set.js.map

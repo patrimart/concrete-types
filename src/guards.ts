@@ -9,8 +9,8 @@ import {
 /**
  * 
  */
-export function is <T> (obj: any): obj is ConcreteStructure {
-    return !! obj && obj[ConcreteStructureTypeKey] !== undefined;
+export function is (obj: any | undefined): obj is ConcreteStructure {
+    return obj !== undefined && obj[ConcreteStructureTypeKey] !== undefined;
 }
 
 export function isArray <T> (obj: T[]): obj is i.ConcreteArray<T> {
@@ -25,7 +25,7 @@ export function isMap <K, V> (obj: Map<K, V>): obj is i.ConcreteMap<K, V> {
     return is(obj) && (obj as any)[ConcreteStructureTypeKey] === ConcreteStructureType.MAP;
 }
 
-export function isObject <T> (obj: any): obj is i.ConcreteObject<T> {
+export function isObject <T> (obj: any | undefined): obj is i.ConcreteObject<T> {
     return is(obj) && (obj as any)[ConcreteStructureTypeKey] === ConcreteStructureType.OBJECT;
 }
 

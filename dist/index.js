@@ -17,7 +17,7 @@ function from(obj, forceDeep) {
         if (Array.isArray(obj)) {
             return consArray.from(obj, forceDeep);
         }
-        else if (obj.constructor === Object) {
+        else if (obj.constructor.name === "Object") {
             return consObj.from(obj, forceDeep);
         }
     }

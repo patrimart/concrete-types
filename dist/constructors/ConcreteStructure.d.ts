@@ -16,5 +16,5 @@ export declare const ConcreteStructureTypeKey: symbol;
 /**
  *
  */
-export declare class ConcreteStructure {
+export interface ConcreteStructure {
 }

@@ -4,7 +4,7 @@ var ConcreteStructure_1 = require("./constructors/ConcreteStructure");
  *
  */
 function is(obj) {
-    return !!obj && obj[ConcreteStructure_1.ConcreteStructureTypeKey] !== undefined;
+    return obj !== undefined && obj[ConcreteStructure_1.ConcreteStructureTypeKey] !== undefined;
 }
 exports.is = is;
 function isArray(obj) {

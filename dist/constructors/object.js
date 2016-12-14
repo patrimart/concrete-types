@@ -1,6 +1,7 @@
 "use strict";
 var ConcreteStructure_1 = require("./ConcreteStructure");
 var errors_1 = require("../errors");
+var guards_1 = require("../guards");
 var _1 = require("../");
 /**
  *
@@ -17,6 +18,9 @@ exports.toMutable = toMutable;
  *
  */
 function from(obj, forceDeep) {
+    if (guards_1.isObject(obj)) {
+        return obj;
+    }
     obj = Object.defineProperty(obj, ConcreteStructure_1.ConcreteStructureTypeKey, {
         value: ConcreteStructure_1.ConcreteStructureType.OBJECT
     });

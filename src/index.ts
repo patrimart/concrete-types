@@ -16,17 +16,15 @@ export function from <T> (arr: T[], forceDeep?: boolean): i.ConcreteArray<T>;
 export function from (date: Date): i.ConcreteDate;
 export function from <K, V> (map: Map<K, V>): i.ConcreteMap<K, V>;
 export function from <T> (set: Set<T>): i.ConcreteSet<T>;
-export function from <T extends Object> (obj: T, forceDeep?: boolean): i.ConcreteObject<T>;
+export function from <T extends {}> (obj: T, forceDeep?: boolean): i.ConcreteObject<T>;
 export function from (obj: any, forceDeep?: boolean): any {
 
-    if (guards.is(obj)) {
-        return obj;
-    }
+    if (guards.is(obj)) { return obj; }
 
     if (typeof obj === "object") {
         if (Array.isArray(obj)) {
             return consArray.from(obj, forceDeep);
-        } else if (obj.constructor === Object) {
+        } else if (obj.constructor.name === "Object") {
             return consObj.from(obj, forceDeep);
         }
     } else if (obj instanceof Map) {

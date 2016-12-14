@@ -1,4 +1,9 @@
+.gitignore
+.travis.yml
+coverage
 src
-tests
+test
+README.md
 tsconfig.json
-tsling.json
+tslint.json
+webpack.concrete.js

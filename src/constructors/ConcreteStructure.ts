@@ -1,8 +1,6 @@
 
-const StructureCacheKey = Symbol("StructureCacheKey");
-
-const StructureCache = new WeakMap<Object, ConcreteStructure>();
-
+// const StructureCacheKey = Symbol("StructureCacheKey");
+// const StructureCache = new WeakMap<Object, ConcreteStructure>();
 
 /**
  * 
@@ -14,14 +12,9 @@ export enum ConcreteStructureType {
 /**
  * 
  */
-export const ConcreteStructureTypeKey = Symbol("ConcreteStructureType");
+export const ConcreteStructureTypeKey = Symbol("ConcreteStructureTypeKey");
 
 /**
  * 
  */
-export class ConcreteStructure {
-
-    public [ConcreteStructureTypeKey](): ConcreteStructureType {
-        return ConcreteStructureType.UNKNOWN;
-    }
-}
+export interface ConcreteStructure {}

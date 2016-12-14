@@ -6,4 +6,4 @@ export declare function toMutable<T>(obj: ConcreteObject<T>): T;
 /**
  *
  */
-export declare function from<T extends Object>(obj: T, forceDeep?: boolean): ConcreteObject<T>;
+export declare function from<T>(obj: T, forceDeep?: boolean): ConcreteObject<T>;

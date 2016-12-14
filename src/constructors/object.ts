@@ -1,6 +1,4 @@
 
-import { is } from "../guards";
-
 import { ConcreteStructureType, ConcreteStructureTypeKey } from "./ConcreteStructure";
 
 import { ReadonlyError }  from "../errors";
@@ -10,6 +8,7 @@ import * as consArray from "./array";
 import * as consDate  from "./date";
 import * as consMap   from "./map";
 import * as consSet   from "./set";
+import { isObject }   from "../guards";
 
 import {
     from as fromAll,
@@ -30,7 +29,9 @@ export function toMutable <T> (obj: ConcreteObject<T>): T {
 /**
  * 
  */
-export function from <T extends Object> (obj: T, forceDeep?: boolean): ConcreteObject<T> {
+export function from <T> (obj: T, forceDeep?: boolean): ConcreteObject<T> {
+
+    if (isObject<T>(obj as any)) { return obj as ConcreteObject<T>; }
 
     obj = Object.defineProperty(obj, ConcreteStructureTypeKey, {
         value: ConcreteStructureType.OBJECT
@@ -62,7 +63,6 @@ function proxyHandler<T> (forceDeep?: boolean): ProxyHandler<T> {
             }
 
             return fromAll(value);
-
         },
 
         set: function (oTarget, sKey, vValue) {

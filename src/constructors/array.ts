@@ -1,15 +1,14 @@
 
-import { is } from "../guards";
-
 import { ConcreteStructureType, ConcreteStructureTypeKey } from "./ConcreteStructure";
 
-import { ReadonlyError }  from "../errors";
+import { ReadonlyError } from "../errors";
 import { ConcreteArray } from "../interfaces/";
 
 import * as consArray from "./object";
 import * as consDate  from "./date";
 import * as consMap   from "./map";
 import * as consSet   from "./set";
+import { isArray }    from "../guards";
 
 import {
     from as fromAll,
@@ -23,10 +22,12 @@ const readOnlyErrorProp = {
 
 export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
 
+    if (isArray(arr)) { return arr as ConcreteArray<T>; }
+
     let sumCache: number;
 
     arr = Object.defineProperties(arr, {
-        ConcreteStructureTypeKey: {
+        [ConcreteStructureTypeKey]: {
             value: ConcreteStructureType.ARRAY,
         },
         length     : { value: arr.length },

@@ -8,6 +8,7 @@ describe("ConcreteObject", function () {
         number: 1,
         bool: true,
         array: ["a", "b", "c"],
+        objArray: [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }],
         date: new Date(),
         map: new Map(),
         set: new Set(["a", "b", "c"]),
@@ -20,7 +21,7 @@ describe("ConcreteObject", function () {
             console.log("ConcreteObject key=" + key + " value=" + cobj[key]);
         }
     });
-    it.skip("should equal JS Object", function () {
+    it("should equal JS Object", function () {
         assert.deepEqual(cobj, obj, "ConcreteObject not equal");
     });
 });

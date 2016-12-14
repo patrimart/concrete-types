@@ -1,6 +1,7 @@
 "use strict";
 var errors_1 = require("../errors");
 var ConcreteStructure_1 = require("./ConcreteStructure");
+var guards_1 = require("../guards");
 var readOnlyErrorProp = {
     value: function () { throw new errors_1.ReadonlyError("This method is not supported by ConcreteDate."); },
 };
@@ -8,41 +9,33 @@ var readOnlyErrorProp = {
  *
  */
 function from(date) {
-    date = Object.defineProperties(date, {
-        ConcreteStructureTypeKey: {
+    if (guards_1.isDate(date)) {
+        return date;
+    }
+    date = Object.defineProperties(date, (_a = {},
+        _a[ConcreteStructure_1.ConcreteStructureTypeKey] = {
             value: ConcreteStructure_1.ConcreteStructureType.DATE
         },
-        setTime: readOnlyErrorProp,
-        setUTCMilliseconds: readOnlyErrorProp,
-        setSeconds: readOnlyErrorProp,
-        setUTCSeconds: readOnlyErrorProp,
-        setMinutes: readOnlyErrorProp,
-        setUTCMinutes: readOnlyErrorProp,
-        setHours: readOnlyErrorProp,
-        setUTCHours: readOnlyErrorProp,
-        setDate: readOnlyErrorProp,
-        setUTCDate: readOnlyErrorProp,
-        setMonth: readOnlyErrorProp,
-        setUTCMonth: readOnlyErrorProp,
-        setFullYear: readOnlyErrorProp,
-        setUTCFullYear: readOnlyErrorProp,
-        toMutable: function () {
+        _a.setTime = readOnlyErrorProp,
+        _a.setUTCMilliseconds = readOnlyErrorProp,
+        _a.setSeconds = readOnlyErrorProp,
+        _a.setUTCSeconds = readOnlyErrorProp,
+        _a.setMinutes = readOnlyErrorProp,
+        _a.setUTCMinutes = readOnlyErrorProp,
+        _a.setHours = readOnlyErrorProp,
+        _a.setUTCHours = readOnlyErrorProp,
+        _a.setDate = readOnlyErrorProp,
+        _a.setUTCDate = readOnlyErrorProp,
+        _a.setMonth = readOnlyErrorProp,
+        _a.setUTCMonth = readOnlyErrorProp,
+        _a.setFullYear = readOnlyErrorProp,
+        _a.setUTCFullYear = readOnlyErrorProp,
+        _a.toMutable = function () {
             return new Date(date.getTime());
         },
-    });
-    date = Object.freeze(date);
-    // date = new Proxy(date, {
-    //     set: function (oTarget, sKey, vValue) {
-    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     deleteProperty: function (oTarget, sKey) {
-    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     defineProperty: function (oTarget, sKey, oDesc) {
-    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-    //     },
-    // });
-    return date;
+        _a));
+    return Object.freeze(date);
+    var _a;
 }
 exports.from = from;
 //# sourceMappingURL=date.js.map

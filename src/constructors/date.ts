@@ -1,10 +1,12 @@
 
 import { ReadonlyError } from "../errors";
-import { ConcreteDate } from "../interfaces/ConcreteDate";
+import { ConcreteDate }  from "../interfaces/ConcreteDate";
 import {
     ConcreteStructureType,
     ConcreteStructureTypeKey
 } from "./ConcreteStructure";
+
+import { isDate } from "../guards";
 
 
 const readOnlyErrorProp = {
@@ -16,8 +18,10 @@ const readOnlyErrorProp = {
  */
 export function from (date: Date): ConcreteDate {
 
+    if (isDate(date)) { return date as ConcreteDate; }
+
     date = Object.defineProperties(date, {
-        ConcreteStructureTypeKey: {
+        [ConcreteStructureTypeKey]: {
             value: ConcreteStructureType.DATE
         },
         setTime            : readOnlyErrorProp,
@@ -39,18 +43,5 @@ export function from (date: Date): ConcreteDate {
         },
     });
 
-    date = Object.freeze<Date>(date) as any;
-    // date = new Proxy(date, {
-    //     set: function (oTarget, sKey, vValue) {
-    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     deleteProperty: function (oTarget, sKey) {
-    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     defineProperty: function (oTarget, sKey, oDesc) {
-    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-    //     },
-    // });
-
-    return date as ConcreteDate;
+    return Object.freeze<Date>(date) as ConcreteDate;
 }

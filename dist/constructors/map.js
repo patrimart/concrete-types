@@ -1,5 +1,6 @@
 "use strict";
 var errors_1 = require("../errors");
+var guards_1 = require("../guards");
 var ConcreteStructure_1 = require("./ConcreteStructure");
 var _1 = require("../");
 var readOnlyErrorProp = {
@@ -9,33 +10,25 @@ var readOnlyErrorProp = {
  *
  */
 function from(map) {
+    if (guards_1.isMap(map)) {
+        return map;
+    }
     map.forEach(function (v, k) { return _1.from(v); }); // map.set(k, fromAll(v)));
-    map = Object.defineProperties(map, {
-        ConcreteStructureTypeKey: {
+    map = Object.defineProperties(map, (_a = {},
+        _a[ConcreteStructure_1.ConcreteStructureTypeKey] = {
             value: ConcreteStructure_1.ConcreteStructureType.MAP
         },
-        clear: readOnlyErrorProp,
-        delete: readOnlyErrorProp,
-        set: readOnlyErrorProp,
-        toMutable: function () {
+        _a.clear = readOnlyErrorProp,
+        _a.delete = readOnlyErrorProp,
+        _a.set = readOnlyErrorProp,
+        _a.toMutable = function () {
             var mutMap = new Map();
             map.forEach(function (v, k) { return mutMap.set(k, _1.toMutable(v)); });
             return mutMap;
         },
-    });
-    map = Object.freeze(map);
-    // map = new Proxy(map, {
-    //     set: function (oTarget, sKey, vValue) {
-    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     deleteProperty: function (oTarget, sKey) {
-    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     defineProperty: function (oTarget, sKey, oDesc) {
-    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-    //     },
-    // });
-    return map;
+        _a));
+    return Object.freeze(map);
+    var _a;
 }
 exports.from = from;
 //# sourceMappingURL=map.js.map

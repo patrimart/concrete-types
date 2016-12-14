@@ -1,8 +1,10 @@
 
 import { ReadonlyError } from "../errors";
 import { ConcreteSet }   from "../interfaces/ConcreteSet";
+import { isSet }         from "../guards";
 
-import { ConcreteStructureType } from "./ConcreteStructure";
+import { ConcreteStructureType, ConcreteStructureTypeKey } from "./ConcreteStructure";
+
 import {
     from as fromAll,
     toMutable as toMutableAll,
@@ -18,10 +20,12 @@ const readOnlyErrorProp = {
  */
 export function from <T> (set: Set<T>): ConcreteSet<T> {
 
+    if (isSet(set)) { return set as ConcreteSet<T>; }
+
     set.forEach(v => fromAll(v));
 
     set = Object.defineProperties(set, {
-        ConcreteStructureTypeKey: {
+        [ConcreteStructureTypeKey]: {
             value: ConcreteStructureType.MAP
         },
         add       : readOnlyErrorProp,
@@ -34,18 +38,5 @@ export function from <T> (set: Set<T>): ConcreteSet<T> {
         },
     });
 
-    set = Object.freeze(set) as any;
-    // set = new Proxy(set, {
-    //     set: function (oTarget, sKey, vValue) {
-    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     deleteProperty: function (oTarget, sKey) {
-    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     defineProperty: function (oTarget, sKey, oDesc) {
-    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-    //     },
-    // });
-
-    return set as ConcreteSet<T>;
+    return Object.freeze(set) as ConcreteSet<T>;
 }

@@ -1,8 +1,10 @@
 
 import { ReadonlyError } from "../errors";
 import { ConcreteMap }   from "../interfaces/ConcreteMap";
+import { isMap }         from "../guards";
 
-import { ConcreteStructureType } from "./ConcreteStructure";
+import { ConcreteStructureType, ConcreteStructureTypeKey } from "./ConcreteStructure";
+
 import {
     from as fromAll,
     toMutable as toMutableAll,
@@ -18,10 +20,12 @@ const readOnlyErrorProp = {
  */
 export function from <K, V> (map: Map<K, V>): ConcreteMap<K, V> {
 
+    if (isMap(map)) { return map as ConcreteMap<K, V>; }
+
     map.forEach((v, k) => fromAll(v)); // map.set(k, fromAll(v)));
 
     map = Object.defineProperties(map, {
-        ConcreteStructureTypeKey: {
+        [ConcreteStructureTypeKey]: {
             value: ConcreteStructureType.MAP
         },
         clear     : readOnlyErrorProp,
@@ -34,18 +38,5 @@ export function from <K, V> (map: Map<K, V>): ConcreteMap<K, V> {
         },
     });
 
-    map = Object.freeze(map) as any;
-    // map = new Proxy(map, {
-    //     set: function (oTarget, sKey, vValue) {
-    //         throw new ReadonlyError("Setting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     deleteProperty: function (oTarget, sKey) {
-    //         throw new ReadonlyError("Deleting a property on a ConcreteDate is forbidden.");
-    //     },
-    //     defineProperty: function (oTarget, sKey, oDesc) {
-    //         throw new ReadonlyError("Defining a property on a ConcreteDate is forbidden.");
-    //     },
-    // });
-
-    return map as ConcreteMap<K, V>;
+    return Object.freeze(map) as ConcreteMap<K, V>;
 }

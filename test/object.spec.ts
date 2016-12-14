@@ -9,6 +9,7 @@ interface ITestObj {
     number: number;
     bool: boolean;
     array: string[];
+    objArray: Array<{ [key: string]: number }>;
     date: Date;
     map: Map<string, number>;
     set: Set<string>;
@@ -21,6 +22,7 @@ describe("ConcreteObject", function () {
         number: 1,
         bool: true,
         array: ["a", "b", "c"],
+        objArray: [ {a: 1}, {b: 2}, {c: 3}, {d: 4} ],
         date: new Date(),
         map: new Map<string, number>(),
         set: new Set<string>(["a", "b", "c"]),
@@ -36,7 +38,7 @@ describe("ConcreteObject", function () {
         }
     });
 
-    it.skip("should equal JS Object", function () {
+    it("should equal JS Object", function () {
 
         assert.deepEqual(cobj, obj, "ConcreteObject not equal");
 

@@ -1,6 +1,6 @@
+// const StructureCacheKey = Symbol("StructureCacheKey");
+// const StructureCache = new WeakMap<Object, ConcreteStructure>();
 "use strict";
-var StructureCacheKey = Symbol("StructureCacheKey");
-var StructureCache = new WeakMap();
 /**
  *
  */
@@ -16,17 +16,5 @@ var ConcreteStructureType;
 /**
  *
  */
-exports.ConcreteStructureTypeKey = Symbol("ConcreteStructureType");
-/**
- *
- */
-var ConcreteStructure = (function () {
-    function ConcreteStructure() {
-    }
-    ConcreteStructure.prototype[exports.ConcreteStructureTypeKey] = function () {
-        return ConcreteStructureType.UNKNOWN;
-    };
-    return ConcreteStructure;
-}());
-exports.ConcreteStructure = ConcreteStructure;
+exports.ConcreteStructureTypeKey = Symbol("ConcreteStructureTypeKey");
 //# sourceMappingURL=ConcreteStructure.js.map
