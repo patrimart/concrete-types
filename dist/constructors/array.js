@@ -33,8 +33,10 @@ function from(arr, forceDeep) {
                 return sumCache;
             },
         },
-        _a.toMutable = function () {
-            return arr.map(function (v) { return _1.toMutable(v); });
+        _a.toMutable = {
+            value: function () {
+                return arr.map(function (v) { return _1.toMutable(v); });
+            }
         },
         _a));
     // Proxify

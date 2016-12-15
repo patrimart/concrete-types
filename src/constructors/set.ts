@@ -20,7 +20,7 @@ const readOnlyErrorProp = {
  */
 export function from <T> (set: Set<T>): ConcreteSet<T> {
 
-    if (isSet(set)) { return set as ConcreteSet<T>; }
+    if (isSet(set)) { return set; }
 
     set.forEach(v => fromAll(v));
 
@@ -31,10 +31,13 @@ export function from <T> (set: Set<T>): ConcreteSet<T> {
         add       : readOnlyErrorProp,
         clear     : readOnlyErrorProp,
         delete    : readOnlyErrorProp,
-        toMutable : function () {
-            const mutSet = new Set<T>();
-            set.forEach(v => mutSet.add(toMutableAll(v) as any));
-            return mutSet;
+        toMutable : {
+            enumerable: true,
+            value: function () {
+                const mutSet = new Set<T>();
+                set.forEach(v => mutSet.add(toMutableAll(v) as any));
+                return mutSet;
+            },
         },
     });
 

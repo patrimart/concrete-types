@@ -27,14 +27,14 @@ export function from (obj: any, forceDeep?: boolean): any {
         } else if (obj.constructor.name === "Object") {
             return consObj.from(obj, forceDeep);
         }
-    } else if (obj instanceof Map) {
+    }
+    if (obj instanceof Map) {
         return consMap.from(obj);
     } else if (obj instanceof Set) {
         return consSet.from(obj);
     } else if (obj instanceof Date) {
         return consDate.from(obj);
     }
-    // throw new TypeError(`The given object type is not supported: ${obj}`);
     return obj;
 }
 
@@ -46,7 +46,7 @@ export function toMutable <T> (obj: i.ConcreteObject<T>): T;
 export function toMutable <T> (obj: i.ConcreteSet<T>): Set<T>;
 export function toMutable (obj: any): any {
 
-    if (guards.isObject(obj)) {
+    if (guards.isObject(obj as any)) {
         return consObj.toMutable(obj);
     } else if (guards.isArray(obj)) {
         return obj.toMutable();
@@ -57,6 +57,5 @@ export function toMutable (obj: any): any {
     } else if (guards.isSet(obj)) {
         return obj.toMutable();
     }
-    // throw new TypeError(`The given object type is not supported: ${obj}`);
     return obj;
 }

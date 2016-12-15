@@ -22,7 +22,7 @@ const readOnlyErrorProp = {
 
 export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
 
-    if (isArray(arr)) { return arr as ConcreteArray<T>; }
+    if (isArray(arr)) { return arr; }
 
     let sumCache: number;
 
@@ -48,8 +48,10 @@ export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
                 return sumCache;
             },
         },
-        toMutable  : function (): T[] {
-            return arr.map(v => toMutableAll(v)) as T[];
+        toMutable  : {
+            value: function (): T[] {
+                return arr.map(v => toMutableAll(v)) as T[];
+            }
         },
     });
 

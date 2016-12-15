@@ -18,7 +18,7 @@ const readOnlyErrorProp = {
  */
 export function from (date: Date): ConcreteDate {
 
-    if (isDate(date)) { return date as ConcreteDate; }
+    if (isDate(date)) { return date; }
 
     date = Object.defineProperties(date, {
         [ConcreteStructureTypeKey]: {
@@ -38,8 +38,11 @@ export function from (date: Date): ConcreteDate {
         setUTCMonth        : readOnlyErrorProp,
         setFullYear        : readOnlyErrorProp,
         setUTCFullYear     : readOnlyErrorProp,
-        toMutable          : function () {
-            return new Date(date.getTime());
+        toMutable          : {
+            enumerable: true,
+            value: function () {
+                return new Date(date.getTime());
+            },
         },
     });
 

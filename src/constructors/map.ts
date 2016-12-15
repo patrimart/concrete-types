@@ -20,7 +20,7 @@ const readOnlyErrorProp = {
  */
 export function from <K, V> (map: Map<K, V>): ConcreteMap<K, V> {
 
-    if (isMap(map)) { return map as ConcreteMap<K, V>; }
+    if (isMap(map)) { return map; }
 
     map.forEach((v, k) => fromAll(v)); // map.set(k, fromAll(v)));
 
@@ -31,10 +31,13 @@ export function from <K, V> (map: Map<K, V>): ConcreteMap<K, V> {
         clear     : readOnlyErrorProp,
         delete    : readOnlyErrorProp,
         set       : readOnlyErrorProp,
-        toMutable : function () {
-            const mutMap = new Map<K, V>();
-            map.forEach((v, k) => mutMap.set(k, toMutableAll(v) as V));
-            return mutMap;
+        toMutable : {
+            enumerable: true,
+            value: function () {
+                const mutMap = new Map<K, V>();
+                map.forEach((v, k) => mutMap.set(k, toMutableAll(v) as V));
+                return mutMap;
+            }
         },
     });
 

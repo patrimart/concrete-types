@@ -21,10 +21,13 @@ function from(map) {
         _a.clear = readOnlyErrorProp,
         _a.delete = readOnlyErrorProp,
         _a.set = readOnlyErrorProp,
-        _a.toMutable = function () {
-            var mutMap = new Map();
-            map.forEach(function (v, k) { return mutMap.set(k, _1.toMutable(v)); });
-            return mutMap;
+        _a.toMutable = {
+            enumerable: true,
+            value: function () {
+                var mutMap = new Map();
+                map.forEach(function (v, k) { return mutMap.set(k, _1.toMutable(v)); });
+                return mutMap;
+            }
         },
         _a));
     return Object.freeze(map);

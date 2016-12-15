@@ -10,13 +10,6 @@ describe("ConcreteArray", function () {
     const arr = [1, 2, 3, 4, 5];
     const carr = Concrete.from(arr);
 
-    it("should output console.log()", function () {
-
-        console.log(carr);
-        console.log(Object.keys(carr));
-        carr.forEach(v => console.log("forEach", v));
-    });
-
     it("should equal regular Array", function () {
         assert.deepEqual(carr, arr, "ConcreteArray not equal");
     });
@@ -39,6 +32,24 @@ describe("ConcreteArray", function () {
         assert.throws(() => carr.sort());
         assert.throws(() => carr.splice(0));
         assert.throws(() => carr.unshift());
+    });
+
+    it("should return mutable", function () {
+        assert.deepEqual(carr.toMutable(), arr, "ConcreteArray not equal");
+    });
+
+
+    it("should prevent sneaky reassignments", function () {
+
+        const objsArr = Concrete.from([{a: 1}, {a: 2}, {a: 3}]);
+
+        assert.throws(() => {
+            objsArr.forEach(v => v.a = 0);
+        }, "Allowed forEach assignment");
+
+        assert.throws(() => {
+            for (let v of objsArr) { v.a = 0; }
+        }, "Allowed for...of assignment");
     });
 
 });

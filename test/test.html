@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <script src="../bundle/concrete.min.js"></script>
+        <script>
+
+            const obj = Concrete.from({a: {b: 2}});
+            const arr = Concrete.from([1, 2, 3, 4]);
+            const date = Concrete.from(new Date());
+            const set = Concrete.from(new Set([1, 2, 3, 4]));
+            const map = Concrete.from(new Map([["a", 1], ["b", 2], ["c", 3]]));
+
+            console.log(obj);
+            console.log(arr);
+            console.log(date);
+            console.log(set);
+            console.log(map);
+
+            try { obj.a = 2; } catch (err) { console.error(err); }
+            try { arr[0] = 5; } catch (err) { console.error(err); }
+            try { date.setTime(1234); } catch (err) { console.error(err); }
+            try { set.add(5); } catch (err) { console.error(err); }
+            try { map.set("d", 4); } catch (err) { console.error(err); }
+
+            console.log(obj);
+            console.log(arr);
+            console.log(date);
+            console.log(set);
+            console.log(map);
+
+            console.log(Concrete.toMutable(obj));
+            console.log(arr.toMutable());
+            console.log(date.toMutable());
+            console.log(set.toMutable());
+            console.log(map.toMutable());
+
+        </script>
+    </head>
+    <body>
+        <p>Look at the console for some test results.</p>
+    </body>
+</html>

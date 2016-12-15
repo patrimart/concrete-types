@@ -21,10 +21,13 @@ function from(set) {
         _a.add = readOnlyErrorProp,
         _a.clear = readOnlyErrorProp,
         _a.delete = readOnlyErrorProp,
-        _a.toMutable = function () {
-            var mutSet = new Set();
-            set.forEach(function (v) { return mutSet.add(_1.toMutable(v)); });
-            return mutSet;
+        _a.toMutable = {
+            enumerable: true,
+            value: function () {
+                var mutSet = new Set();
+                set.forEach(function (v) { return mutSet.add(_1.toMutable(v)); });
+                return mutSet;
+            },
         },
         _a));
     return Object.freeze(set);

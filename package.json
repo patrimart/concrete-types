@@ -1,6 +1,6 @@
 {
   "name": "concrete-types",
-  "version": "0.5.0-alpha.5",
+  "version": "0.5.0-alpha.6",
   "description": "Immutable data structures for TypeScript and JavaScript.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -8,14 +8,17 @@
     "compile": "rm -rf ./dist/**/* && ./node_modules/typescript/bin/tsc",
     "compile-test": "rm -rf ./test/*.spec.js && ./node_modules/typescript/bin/tsc ./test/*.spec.ts --target ES5 --lib ES6",
     "compile-all": "npm run compile && npm run compile-test",
-    "bundle": "node ./node_modules/webpack/bin/webpack --optimize-occurrence-order --optimize-dedupe webpack.concrete.js ./bundle/concrete.min.js",
+    "bundle-min": "node ./node_modules/webpack/bin/webpack -p webpack.concrete.js ./bundle/concrete.min.js",
+    "bundle-umd": "node ./node_modules/webpack/bin/webpack --output-library-target umd webpack.concrete-umd.js ./bundle/concrete.umd.js",
     "test": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test-local": "node_modules/.bin/istanbul cover _mocha  -- -R spec",
-    "test-mocha": "mocha --require source-map-support/register  ./test/*.spec.js",
-    "release": "npm run compile-all && npm run test-local && npm run bundle && echo 'Remember to bump the version.'"
+    "test-mocha": "mocha --require source-map-support/register ./test/*.spec.js",
+    "release": "npm run compile-all && npm run test-mocha && npm run bundle-min && npm run bundle-umd && echo 'Remember to bump the version.'"
   },
   "keywords": [
-    "immutable"
+    "immutable",
+    "data",
+    "structures"
   ],
   "author": "Patrick Martin",
   "license": "MIT",

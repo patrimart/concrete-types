@@ -23,7 +23,7 @@ export function toMutable <T> (obj: ConcreteObject<T>): T {
     for (const key in obj) {
         mutObj[key] = toMutableAll((obj as any)[key]);
     }
-    return mutObj as T;
+    return mutObj as T; 
 }
 
 /**
@@ -31,7 +31,7 @@ export function toMutable <T> (obj: ConcreteObject<T>): T {
  */
 export function from <T> (obj: T, forceDeep?: boolean): ConcreteObject<T> {
 
-    if (isObject<T>(obj as any)) { return obj as ConcreteObject<T>; }
+    if (isObject(obj)) { return obj; }
 
     obj = Object.defineProperty(obj, ConcreteStructureTypeKey, {
         value: ConcreteStructureType.OBJECT

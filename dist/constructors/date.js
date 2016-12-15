@@ -30,8 +30,11 @@ function from(date) {
         _a.setUTCMonth = readOnlyErrorProp,
         _a.setFullYear = readOnlyErrorProp,
         _a.setUTCFullYear = readOnlyErrorProp,
-        _a.toMutable = function () {
-            return new Date(date.getTime());
+        _a.toMutable = {
+            enumerable: true,
+            value: function () {
+                return new Date(date.getTime());
+            },
         },
         _a));
     return Object.freeze(date);

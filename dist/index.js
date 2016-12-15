@@ -21,7 +21,7 @@ function from(obj, forceDeep) {
             return consObj.from(obj, forceDeep);
         }
     }
-    else if (obj instanceof Map) {
+    if (obj instanceof Map) {
         return consMap.from(obj);
     }
     else if (obj instanceof Set) {
@@ -30,7 +30,6 @@ function from(obj, forceDeep) {
     else if (obj instanceof Date) {
         return consDate.from(obj);
     }
-    // throw new TypeError(`The given object type is not supported: ${obj}`);
     return obj;
 }
 exports.from = from;
@@ -50,7 +49,6 @@ function toMutable(obj) {
     else if (guards.isSet(obj)) {
         return obj.toMutable();
     }
-    // throw new TypeError(`The given object type is not supported: ${obj}`);
     return obj;
 }
 exports.toMutable = toMutable;

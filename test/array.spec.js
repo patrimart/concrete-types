@@ -5,11 +5,6 @@ var Concrete = require("../dist/");
 describe("ConcreteArray", function () {
     var arr = [1, 2, 3, 4, 5];
     var carr = Concrete.from(arr);
-    it("should output console.log()", function () {
-        console.log(carr);
-        console.log(Object.keys(carr));
-        carr.forEach(function (v) { return console.log("forEach", v); });
-    });
     it("should equal regular Array", function () {
         assert.deepEqual(carr, arr, "ConcreteArray not equal");
     });
@@ -28,5 +23,20 @@ describe("ConcreteArray", function () {
         assert.throws(function () { return carr.sort(); });
         assert.throws(function () { return carr.splice(0); });
         assert.throws(function () { return carr.unshift(); });
+    });
+    it("should return mutable", function () {
+        assert.deepEqual(carr.toMutable(), arr, "ConcreteArray not equal");
+    });
+    it("should prevent sneaky reassignments", function () {
+        var objsArr = Concrete.from([{ a: 1 }, { a: 2 }, { a: 3 }]);
+        assert.throws(function () {
+            objsArr.forEach(function (v) { return v.a = 0; });
+        }, "Allowed forEach assignment");
+        assert.throws(function () {
+            for (var _i = 0, objsArr_1 = objsArr; _i < objsArr_1.length; _i++) {
+                var v = objsArr_1[_i];
+                v.a = 0;
+            }
+        }, "Allowed for...of assignment");
     });
 });
