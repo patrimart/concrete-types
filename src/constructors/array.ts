@@ -1,8 +1,8 @@
 
 import { ConcreteStructureType, ConcreteStructureTypeKey } from "./ConcreteStructure";
 
-import { ReadonlyError } from "../errors";
-import { ConcreteArray } from "../interfaces/";
+import { ReadonlyError }                     from "../errors";
+import { ConcreteArray, ConcreteTupleArray } from "../interfaces/";
 
 import * as consArray from "./object";
 import * as consDate  from "./date";
@@ -48,9 +48,18 @@ export function from <T> (arr: T[], forceDeep?: boolean): ConcreteArray<T> {
                 return sumCache;
             },
         },
+        unzip      : {
+            value: function () {
+                return arr.reduce((p, c) => {
+                    const [k, v] = c as any;
+                    p[k] = v();
+                    return p;
+                }, {} as any);
+            }
+        },
         toMutable  : {
-            value: function (): T[] {
-                return arr.map(v => toMutableAll(v)) as T[];
+            value: function () {
+                return arr.map(v => toMutableAll(v as any) as any) as T[];
             }
         },
     });

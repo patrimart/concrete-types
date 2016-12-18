@@ -23,6 +23,8 @@ describe("ConcreteArray", function () {
         assert.throws(function () { return carr.sort(); });
         assert.throws(function () { return carr.splice(0); });
         assert.throws(function () { return carr.unshift(); });
+        assert.throws(function () { return delete carr[0]; });
+        assert.throws(function () { return Object.defineProperty(carr, "test", {}); });
     });
     it("should return mutable", function () {
         assert.deepEqual(carr.toMutable(), arr, "ConcreteArray not equal");
@@ -37,6 +39,6 @@ describe("ConcreteArray", function () {
                 var v = objsArr_1[_i];
                 v.a = 0;
             }
-        }, "Allowed for...of assignment");
+        }, "Allowed for..of assignment");
     });
 });

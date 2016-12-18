@@ -9,7 +9,7 @@ import {
 /**
  * 
  */
-export function is (obj: any): obj is ConcreteStructure {
+export function is (obj: ConcreteStructure | any): obj is ConcreteStructure {
     return obj !== undefined && (obj as any)[ConcreteStructureTypeKey] !== undefined;
 }
 
@@ -25,7 +25,7 @@ export function isMap <K, V> (obj: Map<K, V>): obj is i.ConcreteMap<K, V> {
     return is(obj) && (obj as any)[ConcreteStructureTypeKey] === ConcreteStructureType.MAP;
 }
 
-export function isObject <T> (obj: i.ConcreteObject<T> | T): obj is i.ConcreteObject<T> {
+export function isObject <T> (obj: T | any): obj is i.ConcreteObject<T> {
     return is(obj) && (obj as any)[ConcreteStructureTypeKey] === ConcreteStructureType.OBJECT;
 }
 

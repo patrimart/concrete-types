@@ -33,6 +33,15 @@ function from(arr, forceDeep) {
                 return sumCache;
             },
         },
+        _a.unzip = {
+            value: function () {
+                return arr.reduce(function (p, c) {
+                    var _a = c, k = _a[0], v = _a[1];
+                    p[k] = v();
+                    return p;
+                }, {});
+            }
+        },
         _a.toMutable = {
             value: function () {
                 return arr.map(function (v) { return _1.toMutable(v); });

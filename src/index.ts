@@ -9,6 +9,7 @@ import * as consMap   from "./constructors/map";
 import * as consObj   from "./constructors/object";
 import * as consSet   from "./constructors/set";
 
+
 export * from "./interfaces";
 export * from "./guards";
 
@@ -16,7 +17,7 @@ export function from <T> (arr: T[], forceDeep?: boolean): i.ConcreteArray<T>;
 export function from (date: Date): i.ConcreteDate;
 export function from <K, V> (map: Map<K, V>): i.ConcreteMap<K, V>;
 export function from <T> (set: Set<T>): i.ConcreteSet<T>;
-export function from <T extends {}> (obj: T, forceDeep?: boolean): i.ConcreteObject<T>;
+export function from <T extends { [k: string]: any }> (obj: T, forceDeep?: boolean): i.ConcreteObject<T>;
 export function from (obj: any, forceDeep?: boolean): any {
 
     if (guards.is(obj)) { return obj; }
@@ -46,7 +47,7 @@ export function toMutable <T> (obj: i.ConcreteObject<T>): T;
 export function toMutable <T> (obj: i.ConcreteSet<T>): Set<T>;
 export function toMutable (obj: any): any {
 
-    if (guards.isObject(obj as any)) {
+    if (guards.isObject(obj)) {
         return consObj.toMutable(obj);
     } else if (guards.isArray(obj)) {
         return obj.toMutable();

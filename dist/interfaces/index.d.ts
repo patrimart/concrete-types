@@ -1,12 +1,11 @@
-import { ConcreteStructure } from "../constructors/ConcreteStructure";
 export * from "./ConcreteSet";
 export * from "./ConcreteMap";
 export * from "./ConcreteDate";
 export * from "./ConcreteArray";
+export * from "./ConcreteObject";
 /**
  *
  */
-export declare type ConcreteObject<T> = Readonly<T> & ConcreteStructure;
 /**
  *
  */

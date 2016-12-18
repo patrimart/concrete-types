@@ -35,7 +35,7 @@ export function from <T> (set: Set<T>): ConcreteSet<T> {
             enumerable: true,
             value: function () {
                 const mutSet = new Set<T>();
-                set.forEach(v => mutSet.add(toMutableAll(v) as any));
+                set.forEach(v => mutSet.add(toMutableAll(v as any) as any));
                 return mutSet;
             },
         },

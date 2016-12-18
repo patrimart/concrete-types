@@ -35,7 +35,7 @@ export function from <K, V> (map: Map<K, V>): ConcreteMap<K, V> {
             enumerable: true,
             value: function () {
                 const mutMap = new Map<K, V>();
-                map.forEach((v, k) => mutMap.set(k, toMutableAll(v) as V));
+                map.forEach((v, k) => mutMap.set(k, toMutableAll(v as any) as any as V));
                 return mutMap;
             }
         },

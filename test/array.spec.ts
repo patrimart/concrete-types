@@ -32,6 +32,9 @@ describe("ConcreteArray", function () {
         assert.throws(() => carr.sort());
         assert.throws(() => carr.splice(0));
         assert.throws(() => carr.unshift());
+
+        assert.throws(() => delete carr[0]);
+        assert.throws(() => Object.defineProperty(carr, "test", {}));
     });
 
     it("should return mutable", function () {
@@ -49,7 +52,7 @@ describe("ConcreteArray", function () {
 
         assert.throws(() => {
             for (let v of objsArr) { v.a = 0; }
-        }, "Allowed for...of assignment");
+        }, "Allowed for..of assignment");
     });
 
 });

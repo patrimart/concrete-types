@@ -15,6 +15,18 @@ interface ITestObj {
     set: Set<string>;
 }
 
+interface ITestObjMapped {
+    pre_string: boolean;
+    pre_number: boolean;
+    pre_bool: boolean;
+    pre_array: boolean;
+    pre_objArray: boolean;
+    pre_date: boolean;
+    pre_map: boolean;
+    pre_set: boolean;
+}
+
+
 describe("ConcreteObject", function () {
 
     const obj: ITestObj = {
@@ -29,10 +41,26 @@ describe("ConcreteObject", function () {
     };
 
     const cobj = Concrete.from(obj);
+    const cdobj = Concrete.from(obj, true);
 
     it("should have same keys as original", function () {
 
         assert.deepEqual(Object.keys(obj), Object.keys(cobj));
+    });
+
+    it("should support util methods", function () {
+
+        cobj.$.forEach((v, k) => console.log("cobj().forEach() => ", k, v()));
+        const pobj = cobj.$.pick("string", "number", "bool");
+        console.log(pobj);
+        const mobj = cobj.$.flatMap((v, k) => v);
+        console.log(mobj);
+
+        const zobj = cobj.$.zip();
+        console.log(zobj.map(([k, v]) => [k, v()]));
+        const uzobj = zobj.unzip();
+        console.log(uzobj);
+        assert.deepEqual(Object.keys(obj), Object.keys(uzobj));
     });
 
     it("should reject propery reassignments", function () {
@@ -43,12 +71,18 @@ describe("ConcreteObject", function () {
         assert.throws(() => cobj.date.setTime(1234), "Allowed `cobj.date.setTime(1234)`");
         assert.throws(() => cobj.map.set("d", 4), "Allowed `cobj.map.set(\"d\", 4)`");
         assert.throws(() => cobj.set.add("d"), "Allowed `cobj.set.add(\"d\")`");
+
+        assert.throws(() => delete cobj.date);
+        assert.throws(() => Object.defineProperty(cobj, "test", {}));
     });
 
     it("should generate immutable object", function () {
 
         const obj2 = Concrete.toMutable(cobj);
         assert.deepEqual(Object.keys(obj), Object.keys(obj2));
+
+        const obj3 = cobj.$.toMutable();
+        assert.deepEqual(Object.keys(obj), Object.keys(obj3));
     });
 
 });
