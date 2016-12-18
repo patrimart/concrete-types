@@ -24,7 +24,8 @@ methods.
 
 **If a program attempts to modify an object, a `ReadonlyError` will be thrown.**
 
-A note on the LazyValue<V> type: `export type LazyValue<V> = () => V;`.
+A note on the LazyValue<V> type: `export type LazyValue<V> = () => V;`. Most object.$ methods return the value wrapped
+in a function. This is to prevent unnecessary evaluations of the lazy immutability.
 
 
 ### Installation
@@ -39,7 +40,7 @@ npm i -S concrete-types
 #### Usage
 
 For TypeScript and ES6:
-```TypeScript
+```js
 import * as Concrete from "concrete-types";
 ```
 
@@ -49,14 +50,14 @@ const Concrete = require("concrete-types");
 ```
 
 For old-school script tag importing:
-```
+```html
 <script src="node_modules/concrete-types/bundle/concrete.min.js"></script>
 ```
 
 **Examples**
 
 Plain JS Object:
-```TypeScript
+```js
 interface IObj {
     foo: string;
     bar: number;
@@ -112,7 +113,7 @@ const obj2 = cobj.toMutable();
 ```
 
 Plain JS Array:
-```TypeScript
+```js
 const arr = [1, 2, 3, 4, 5];
 const carr = Concrete.from(arr);
 

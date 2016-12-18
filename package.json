@@ -1,6 +1,6 @@
 {
   "name": "concrete-types",
-  "version": "0.5.0-beta.1",
+  "version": "0.5.0-beta.2",
   "description": "Immutable objects and arrays for TypeScript and JavaScript.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
