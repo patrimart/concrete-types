@@ -36,7 +36,7 @@ describe("ConcreteObject", function () {
         array: ["a", "b", "c"],
         objArray: [ {a: 1}, {b: 2}, {c: 3}, {d: 4} ],
         date: new Date(),
-        map: new Map<string, number>([["a", 1], ["b", 2], ["c", 3] ]),
+        map: new Map<string, number>([ ["a", 1], ["b", 2], ["c", 3] ]),
         set: new Set<string>(["a", "b", "c"]),
     };
 
@@ -61,12 +61,15 @@ describe("ConcreteObject", function () {
         const uzobj = zobj.unzip();
         console.log(uzobj);
         assert.deepEqual(Object.keys(obj), Object.keys(uzobj));
+
+        const merged = cobj.$.assign({ newParam: 3 });
+        console.log(merged);
     });
 
     it("should reject propery reassignments", function () {
 
-        assert.throws(() => (cobj as any).string = "Goodby", "Allowed `cobj.string`");
-        assert.throws(() => Object.create(cobj as any).string = "Goodby", "Allowed `cobj.string` 2");
+        assert.throws(() => (cobj as any).string = "Goodbye", "Allowed `cobj.string`");
+        assert.throws(() => Object.create(cobj as any).string = "Goodbye", "Allowed `cobj.string` 2");
         assert.throws(() => cobj.array[0] = "d", "Allowed `cobj.array[0] = \"d\"`");
         assert.throws(() => cobj.date.setTime(1234), "Allowed `cobj.date.setTime(1234)`");
         assert.throws(() => cobj.map.set("d", 4), "Allowed `cobj.map.set(\"d\", 4)`");

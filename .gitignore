@@ -1,5 +1,5 @@
 .DS_Store
-.vscode
-.idea
-coverage
-node_modules
+.vscode/
+.idea/
+coverage/
+node_modules/

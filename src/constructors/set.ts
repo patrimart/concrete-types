@@ -23,6 +23,7 @@ export function from <T> (set: Set<T>): ConcreteSet<T> {
     if (isSet(set)) { return set; }
 
     set.forEach(v => fromAll(v));
+    let sumCache: number;
 
     set = Object.defineProperties(set, {
         [ConcreteStructureTypeKey]: {
@@ -31,8 +32,16 @@ export function from <T> (set: Set<T>): ConcreteSet<T> {
         add       : readOnlyErrorProp,
         clear     : readOnlyErrorProp,
         delete    : readOnlyErrorProp,
+        sum       : {
+            value: function () {
+                if (sumCache === undefined) {
+                    sumCache = 0;
+                    set.forEach(v => sumCache += parseFloat(String(v)) || 0);
+                }
+                return sumCache;
+            },
+        },
         toMutable : {
-            enumerable: true,
             value: function () {
                 const mutSet = new Set<T>();
                 set.forEach(v => mutSet.add(toMutableAll(v as any) as any));

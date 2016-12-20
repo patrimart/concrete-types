@@ -32,10 +32,12 @@ describe("ConcreteObject", function () {
         var uzobj = zobj.unzip();
         console.log(uzobj);
         assert.deepEqual(Object.keys(obj), Object.keys(uzobj));
+        var merged = cobj.$.assign({ newParam: 3 });
+        console.log(merged);
     });
     it("should reject propery reassignments", function () {
-        assert.throws(function () { return cobj.string = "Goodby"; }, "Allowed `cobj.string`");
-        assert.throws(function () { return Object.create(cobj).string = "Goodby"; }, "Allowed `cobj.string` 2");
+        assert.throws(function () { return cobj.string = "Goodbye"; }, "Allowed `cobj.string`");
+        assert.throws(function () { return Object.create(cobj).string = "Goodbye"; }, "Allowed `cobj.string` 2");
         assert.throws(function () { return cobj.array[0] = "d"; }, "Allowed `cobj.array[0] = \"d\"`");
         assert.throws(function () { return cobj.date.setTime(1234); }, "Allowed `cobj.date.setTime(1234)`");
         assert.throws(function () { return cobj.map.set("d", 4); }, "Allowed `cobj.map.set(\"d\", 4)`");

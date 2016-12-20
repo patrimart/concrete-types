@@ -8,6 +8,8 @@
 
 #### About
 
+Requires TypeScript 2.1.
+
 This library uses *structure sharing* and *lazy immutablility* in an effort to maximize performance
 via the Proxy object. If your environment does not support `Proxy`, the library will fallback to deep-freezing
 (walking the structure and applying `Object.freeze()`).
@@ -24,7 +26,7 @@ methods.
 
 **If a program attempts to modify an object, a `ReadonlyError` will be thrown.**
 
-A note on the LazyValue<V> type: `export type LazyValue<V> = () => V;`. Most object.$ methods return the value wrapped
+A note on the LazyValue<V> type: `type LazyValue<V> = () => V`. Most `obj.$` methods return the value wrapped
 in a function. This is to prevent unnecessary evaluations of the lazy immutability.
 
 
@@ -75,11 +77,22 @@ const obj: IObj = {
 };
 // Generates a ConcreteObject.
 const cobj = Concrete.from(obj);
+// Or, skip the danger of the mutable original...
+const cobj = Concrete.from<IObj>({
+    foo: "foo value",
+    bar: 123,
+    fooBar: {
+        foo: "fooBar.foo value"
+    }
+});
 // Use it like the original.
 const anotherObj: IObj = cobj;
 
 cobj.foo = "new value"; // Fail
 delete cobj.foo;        // Fail
+
+// Shallow copy the source object into the target, overriding any existing properties.
+const merged = cobj.$.assign({ newParam: 3 });
 
 // Walk through the value/key pairs. Note LazyValue.
 cobj.$.forEach((v, k, i, o) => {
@@ -87,7 +100,7 @@ cobj.$.forEach((v, k, i, o) => {
 });
 
 // Walk through the object, returning a transformed value. No LazyValue.
-cobj.$.flatMap((v, k, i, o) => k !=== "fooBar" ? v + v : v);
+cobj.$.flatMap((v, k, i, o) => k !== "fooBar" ? v + v : v);
 
 // Create a new ConcreteObject.
 cobj.$.map(o => ({
@@ -108,7 +121,7 @@ const zipped = cobj.$.zip();
 const cobj2: IObj = zipped.unzip();
 
 // Deep copy to a mutable object.
-const obj2 = cobj.toMutable();
+const obj2 = cobj.$.toMutable();
 
 ```
 

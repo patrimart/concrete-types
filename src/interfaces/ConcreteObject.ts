@@ -14,6 +14,11 @@ export type ConcreteObject <T> = Readonly<T> & { readonly $: ConcreteObjectUtils
  * 
  */
 export interface ConcreteObjectUtils <T> {
+    
+    /**
+     * 
+     */
+    assign <U> (source: U): ConcreteObject<T & U>;
 
     /**
      *
@@ -25,11 +30,6 @@ export interface ConcreteObjectUtils <T> {
      */
     flatMap <K extends keyof T> (callbackfn: (value: T[K], key: K, index: number, obj: ConcreteObject<T>) => T[K], thisArg?: any): ConcreteObject<T>;
 
-    /**
-     * 
-     */
-    map <U> (callbackfn: (obj: T) => U): ConcreteObject<U>;
-    
     /**
      * 
      */

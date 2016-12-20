@@ -14,15 +14,15 @@ export interface ConcreteObjectUtils<T> {
     /**
      *
      */
+    assign<U>(source: U): ConcreteObject<T & U>;
+    /**
+     *
+     */
     forEach<K extends keyof T>(callbackfn: (value: LazyValue<T[K]>, key: K, index: number, obj: ConcreteObject<T>) => void, thisArg?: any): void;
     /**
      *
      */
     flatMap<K extends keyof T>(callbackfn: (value: T[K], key: K, index: number, obj: ConcreteObject<T>) => T[K], thisArg?: any): ConcreteObject<T>;
-    /**
-     *
-     */
-    map<U>(callbackfn: (obj: T) => U): ConcreteObject<U>;
     /**
      *
      */

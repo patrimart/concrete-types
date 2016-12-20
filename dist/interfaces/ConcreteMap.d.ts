@@ -16,7 +16,6 @@ export interface ConcreteMap<K, V> extends Map<K, V>, ConcreteStructure {
     /**
      *
      */
-    forEach(callbackfn: (value: V, key: K, map: this) => void, thisArg?: any): void;
     /**
      * Throws a ReadonlyError.
      * @throws ReadonlyError

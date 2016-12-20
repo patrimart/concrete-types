@@ -95,13 +95,21 @@ class ConObjUtils <T> implements ConcreteObjectUtils<T> {
     /**
      * 
      */
+    public assign <U> (source: U): ConcreteObject<T & U> {
+
+        return from( Object.assign({}, this.target, source) );
+    }
+
+    /**
+     * 
+     */
     public forEach <K extends keyof T> (callbackfn: (value: LazyValue<T[K]>, key: K, index: number, obj: ConcreteObject<T>) => void, thisArg?: any) {
 
         this._keys.forEach((key, i) => callbackfn.call(thisArg, () => (this.target as any)[key], key, i, this.target));
     }
     
     /**
-     * Simply return the key to keep the value, avoiding eval of lazy value.
+     * 
      */
     public flatMap <K extends keyof T> (callbackfn: (value: T[K], key: K, index: number, obj: ConcreteObject<T>) => T[K], thisArg?: any): ConcreteObject<T> {
 

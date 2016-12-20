@@ -75,12 +75,18 @@ var ConObjUtils = (function () {
     /**
      *
      */
+    ConObjUtils.prototype.assign = function (source) {
+        return from(Object.assign({}, this.target, source));
+    };
+    /**
+     *
+     */
     ConObjUtils.prototype.forEach = function (callbackfn, thisArg) {
         var _this = this;
         this._keys.forEach(function (key, i) { return callbackfn.call(thisArg, function () { return _this.target[key]; }, key, i, _this.target); });
     };
     /**
-     * Simply return the key to keep the value, avoiding eval of lazy value.
+     *
      */
     ConObjUtils.prototype.flatMap = function (callbackfn, thisArg) {
         var _this = this;

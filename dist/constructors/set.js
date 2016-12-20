@@ -14,6 +14,7 @@ function from(set) {
         return set;
     }
     set.forEach(function (v) { return _1.from(v); });
+    var sumCache;
     set = Object.defineProperties(set, (_a = {},
         _a[ConcreteStructure_1.ConcreteStructureTypeKey] = {
             value: ConcreteStructure_1.ConcreteStructureType.MAP
@@ -21,8 +22,16 @@ function from(set) {
         _a.add = readOnlyErrorProp,
         _a.clear = readOnlyErrorProp,
         _a.delete = readOnlyErrorProp,
+        _a.sum = {
+            value: function () {
+                if (sumCache === undefined) {
+                    sumCache = 0;
+                    set.forEach(function (v) { return sumCache += parseFloat(String(v)) || 0; });
+                }
+                return sumCache;
+            },
+        },
         _a.toMutable = {
-            enumerable: true,
             value: function () {
                 var mutSet = new Set();
                 set.forEach(function (v) { return mutSet.add(_1.toMutable(v)); });

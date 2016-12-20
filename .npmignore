@@ -1,10 +1,9 @@
 .gitignore
 .travis.yml
-coverage
-src
-test
+coverage/
+src/
+test/
 README.md
 tsconfig.json
 tslint.json
 webpack.concrete.js
-webpack.concrete-umd.js
